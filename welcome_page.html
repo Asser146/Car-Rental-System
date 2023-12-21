@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="welcome.css">
 </head>
+
 <body>
     <div class="container">
         <div class="text">
-           Welcome
+            Welcome
         </div>
         <form action="#">
-            <div class="form-row">
-                <div class="checkbox-group">
-                    <input type="radio" name="userType" id="client" required>
-                    <label for="client">Client</label>
-                    <input type="radio" name="userType" id="staff" required>
-                    <label for="staff">Staff</label>
+
+            <div class="form-row submit-btn">
+                <div class="input-data">
+                    <div class="inner"></div>
+                    <input type="submit" formaction="login_page.html" id="loginId" value="Login">
                 </div>
             </div>
             <div class="form-row submit-btn">
                 <div class="input-data">
                     <div class="inner"></div>
-                    <input type="submit" value="Login">
+                    <input type="submit" formaction="register_page.html" id="registerId" value="Register">
                 </div>
             </div>
             <div class="form-row submit-btn">
                 <div class="input-data">
                     <div class="inner"></div>
-                    <input type="submit" value="Register">
+                    <input type="submit" formaction="main.html" id="guestId" value="Continue as Guest">
                 </div>
             </div>
         </form>

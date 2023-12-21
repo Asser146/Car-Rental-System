@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="functions.js"></script>
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
+    <script src="log_reg_error.js"></script>
     <div class="container">
         <div class="text">
            Login
         </div>
-        <form action="#">
+        <form action="login_register.php" method="post" onsubmit="return validateLogin()">
             <div class="form-row">
                 <div class="input-data">
-                    <input type="text" required>
+                    <input type="text" id="login_1" name="logEmail" required>
                     <div class="underline"></div>
                     <label for="">Email Address</label>
                 </div>
                 <div class="input-data">
-                    <input type="password" required>
+                    <input type="password" id="login_2" name="logPass" required>
                     <div class="underline"></div>
                     <label for="">Password</label>
                 </div>
+                <div class="checkbox-group">
+                    <input type="radio" name="userType" id="1" onclick="updateChoice(1)">
+                    <label for="client">Client</label>
+                    <input type="radio" name="userType" id="2" onclick="updateChoice(2)">
+                    <label for="staff">Staff</label>
+                </div>
             </div>
+            <input type="hidden" name="choice" value="1">
             <div class="form-row submit-btn">
                 <div class="input-data">
                     <div class="inner"></div>
@@ -28,6 +37,12 @@
                 </div>
             </div>
         </form>
+
+        <script>
+            function updateChoice(value) {
+                document.getElementById(value).value = value;
+            }
+        </script>
     </div>
 </body>
 </html>
