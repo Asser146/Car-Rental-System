@@ -1,0 +1,21 @@
+/* Add this style to your existing style.css file */
+.available-cars-container {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.available-cars-container h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.available-cars-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.available-cars-container li {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
