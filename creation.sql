@@ -1,21 +1,54 @@
-CREATE DATABASE `car rental company`;
-use `car rental company`;
-
-create table staff_user(
-staff_id int not null AUTO_INCREMENT,
-fname varchar(225) not null,
-Lname varchar(225) not null,
-email varchar(225) not null,
-password varchar(225) not null,
-PRIMARY KEY (staff_id)
+CREATE TABLE car (
+    car_id INT AUTO_INCREMENT PRIMARY KEY,
+    company VARCHAR(255),
+    model VARCHAR(255),
+    year_made INT,
+    image_path VARCHAR(255),
+    car_status VARCHAR(255),
+    price_per_day INT,
+    office_num INT NOT NULL
 );
 
-create table client(
-client_id int not null AUTO_INCREMENT,
-fname varchar(225) not null,
-Lname varchar(225) not null,
-email varchar(225) not null,
-password varchar(225) not null,
-PRIMARY KEY (client_id)
+CREATE TABLE staff (
+    staff_id INT AUTO_INCREMENT PRIMARY KEY,
+    Fname VARCHAR(255),
+    Lname VARCHAR(255),
+    office_num VARCHAR(255),
+    email VARCHAR(255),
+    pass VARCHAR(255)
 );
 
+CREATE TABLE customer (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    Fname VARCHAR(255),
+    Lname VARCHAR(255),
+    email VARCHAR(255),
+    pass VARCHAR(255)
+);
+
+CREATE TABLE office (
+    office_id INT NOT NULL,
+    Location VARCHAR(255),
+    mgr_id INT NOT NULL,
+    PRIMARY KEY (office_id)
+);
+
+CREATE TABLE reservation (
+    reservation_id INT AUTO_INCREMENT PRIMARY KEY,
+    car_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    start_date DATE,
+    return_date DATE,
+    return_office INT
+);
+
+ALTER TABLE car
+ADD FOREIGN KEY (office_num) REFERENCES office(office_id);
+
+ALTER TABLE office
+ADD FOREIGN KEY (mgr_id) REFERENCES staff(staff_id);
+
+ALTER TABLE reservation
+ADD FOREIGN KEY (car_id) REFERENCES car(car_id),
+ADD FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+ADD FOREIGN KEY (return_office) REFERENCES office(office_id);
