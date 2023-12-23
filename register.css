@@ -42,8 +42,6 @@ body {
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
   background: -webkit-linear-gradient(right, #d30404, #2232c9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .container form {

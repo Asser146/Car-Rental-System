@@ -56,11 +56,12 @@ input[type="text"] {
 }
 
 input[type="submit"] {
-    background-color: #d30404;
+    /* -cobackgroundlor: #d30404; */
+    background: -webkit-linear-gradient(right, #2232c9, #d30404);
     color: white;
     padding: 10px;
     cursor: pointer;
-    width: 100%;
+    width: 25%;
 }
 
 .show {

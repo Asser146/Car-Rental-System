@@ -83,9 +83,9 @@ VALUES
   ('Ethan', 'Jones', 'ethan.jones@example.com', 'password9'),
   ('Ava', 'Clark', 'ava.clark@example.com', 'password10');
 
-INSERT INTO office (office_id, Location, mgr_id)
+INSERT INTO office (Location, mgr_id)
 VALUES 
-  (1, 'Paris, 123 Rue de la Paix', 1),
-  (2, 'New York, 456 Broadway Street', 2),
-  (3, 'Cairo, 789 Sphinx Avenue', 3),
-  (4, 'Alexandria, 101 Cleopatra Street', 4); 
+  ('Paris, 123 Rue de la Paix', 1),
+  ('New York, 456 Broadway Street', 2),
+  ('Cairo, 789 Sphinx Avenue', 3),
+  ('Alexandria, 101 Cleopatra Street', 4); 
