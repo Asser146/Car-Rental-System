@@ -1,0 +1,103 @@
+<style>
+    body {
+        margin-top: 100px;
+        font-family: Arial, sans-serif;
+    }
+
+    .listing-page {
+        background-color: #f8f8f8;
+        padding: 20px;
+    }
+
+    .car-entity {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        transition: transform 0.3s;
+    }
+
+    .car-entity:hover {
+        transform: scale(1.05);
+    }
+
+    .recent_post_img img {
+        max-width: 100%;
+        height: auto;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .recent_post_title {
+        padding: 15px;
+    }
+
+    .widget_price {
+        color: #e44d26;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .widget_status {
+        color: #333;
+        font-size: 14px;
+    }
+
+    .widget_info {
+        color: #777;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .sidebar_widget {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .widget_heading {
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .widget_heading h5 {
+        color: #333;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn-block {
+        background-color: #e44d26;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-block:hover {
+        background-color: #333;
+    }
+
+    .recent_addedcars ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    .recent_addedcars li {
+        margin-bottom: 15px;
+    }
+
+    .widget_location {
+        color: #777;
+        font-size: 14px;
+    }
+</style>

@@ -12,7 +12,7 @@ function makeConnection() {
 
 function checkEmail($email, $userType) {
     global $data_base; // Making $data_base global
-    $table = ($userType == 1) ? "client" : "staff_user";
+    $table = ($userType == 1) ? "customer" : "staff";
     $sql = "SELECT * FROM $table WHERE email = '$email'";
     $result = $data_base->query($sql);
     if ($result->num_rows > 0) {
@@ -23,7 +23,7 @@ function checkEmail($email, $userType) {
 }
 $userType = $_POST["userType"];
 $authType = $_POST["choice"];
-$table = ($userType == 1) ? "client" : "staff_user";
+$table = ($userType == 1) ? "customer" : "staff";
 if ($authType == 1) { // Login mode
     $input_email = $_POST["logEmail"];
     $input_pass = $_POST["logPass"];
@@ -32,8 +32,12 @@ if ($authType == 1) { // Login mode
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        if ($row['email'] == $input_email && $row['password'] == $input_pass) {
-            header("Location: main.html");
+        if ($row['email'] == $input_email && $row['pass'] == $input_pass) {
+            session_start();
+            $_SESSION['login'] = 1;
+            $_SESSION['customer_id'] = $row['customer_id'];
+            $_SESSION['fname'] = $row['Fname'];
+            header("Location: main.php");
             exit();
         } else {
             // Incorrect email or password
@@ -51,13 +55,13 @@ if ($authType == 1) { // Login mode
     $lname = $_POST["name2"];
 
     if (checkEmail($input_email, $userType)) {
-        $sql = "INSERT INTO $table (fname, Lname, email, password) VALUES ('$fname', '$lname', '$input_email', '$input_pass')";
+        $sql = "INSERT INTO $table (fname, Lname, email, pass) VALUES ('$fname', '$lname', '$input_email', '$input_pass')";
     } else {
         header("Location: register_page.html?register_error=1");
         exit();
     }
     $data_base->query($sql);
-    header("Location: main.html");
+    header("Location: login_page.html");
     exit();
 }
 ?>
