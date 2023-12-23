@@ -33,11 +33,14 @@ if ($authType == 1) { // Login mode
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         if ($row['email'] == $input_email && $row['pass'] == $input_pass) {
+
             session_start();
             $_SESSION['login'] = 1;
             $_SESSION['customer_id'] = $row['customer_id'];
             $_SESSION['fname'] = $row['Fname'];
             header("Location: main.php");
+
+
             exit();
         } else {
             // Incorrect email or password

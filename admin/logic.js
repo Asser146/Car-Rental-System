@@ -1,55 +1,76 @@
-// Function to toggle form visibility
+
 function toggleForm(formId) {
-    // Get the clicked button and its form
-    var clickedButton = document.querySelector('button[data-form="' + formId + '"]');
     var form = document.getElementById(formId);
 
-    // Hide all forms and deactivate all buttons
-    var allForms = document.querySelectorAll('.form');
-    var allButtons = document.querySelectorAll('.button-container button');
-    
-    allForms.forEach(function (f) {
-        f.classList.remove('show');
-    });
-
-    allButtons.forEach(function (btn) {
-        btn.classList.remove('active');
-    });
-
-    // Show the clicked form and activate the clicked button
-    form.classList.add('show');
-    clickedButton.classList.add('active');
-
-    // Get the height of the header
-    var headerHeight = document.querySelector('header').offsetHeight;
-
-    // Shift the form container down when showing the form
+    // Check the current state of the form and toggle accordingly
     if (form.classList.contains('show')) {
-        document.querySelector('.form-container').style.marginTop = headerHeight + 'px';
+        form.classList.remove('show');
     } else {
-        document.querySelector('.form-container').style.marginTop = '0';
+        // Hide all other forms
+        var allForms = document.querySelectorAll('.form');
+        allForms.forEach(function (f) {
+            if (f !== form) {
+                f.classList.remove('show');
+            }
+        });
+
+        form.classList.add('show');
     }
 }
-function validateAdd() {
-    // Get the file input element
+function validateInsert() {
+    if (document.getElementById("field1").value == "") {
+        alert('Add field');
+        return false
+    }
+    if (document.getElementById("field2").value == "") {
+        alert('Add field');
+        return false
+    }
+    if (document.getElementById("field3").value == "") {
+        alert('Add field');
+        return false
+    }
+    if (document.getElementById("field4").value == "") {
+        alert('Add field');
+        return false
+    }
     var fileInput = document.getElementById("imageUpload");
-  
-
-    // Check if a file is selected
+    var formData = new FormData(document.getElementById("form1"));
     if (fileInput.files.length > 0) {
-      
+
         var selectedFile = fileInput.files[0];
-
-       
         var fileName = selectedFile.name;
-       
-    
-        var newPath = "assets\\Car Images\\" + fileName;
-        alert(newPath);
+        var newPath = "assets/Car Images/" + fileName;
+        formData.append("image_path", newPath);
+    }
+    else {
+        return false;
+    }
+    return true;
+}
 
+function validateModify() {
+    if (document.getElementById("field5").value == "") {
+        alert('Add field');
+        return false
+    }
+    if (document.getElementById("field6").value == "") {
+        alert('Add field');
+        return false
+    }
+    return true;
+}
+
+function validateReservation() {
+    if (document.getElementById("field7").value == "") {
+        alert('Add field');
+        return false
+    }
+}
+function validateDelete() {
+    if (document.getElementById("field8").value == "") {
+        alert('Add field');
+        return false
     }
 
-    // Continue with your form validation logic...
-
-    return false; // Prevent form submission for testing
 }

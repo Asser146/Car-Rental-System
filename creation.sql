@@ -27,10 +27,10 @@ CREATE TABLE customer (
 );
 
 CREATE TABLE office (
-    office_id INT NOT NULL,
+    office_id INT AUTO_INCREMENT PRIMARY KEY,
     Location VARCHAR(255),
-    mgr_id INT NOT NULL,
-    PRIMARY KEY (office_id)
+    mgr_id INT,
+    FOREIGN KEY (mgr_id) REFERENCES staff(staff_id)
 );
 
 CREATE TABLE reservation (
@@ -43,12 +43,12 @@ CREATE TABLE reservation (
 );
 
 ALTER TABLE car
-ADD FOREIGN KEY (office_num) REFERENCES office(office_id);
+ADD FOREIGN KEY (office_num) REFERENCES office(office_id) ON UPDATE CASCADE;
 
 ALTER TABLE office
-ADD FOREIGN KEY (mgr_id) REFERENCES staff(staff_id);
+ADD FOREIGN KEY (mgr_id) REFERENCES staff(staff_id) ON UPDATE CASCADE;
 
 ALTER TABLE reservation
-ADD FOREIGN KEY (car_id) REFERENCES car(car_id),
-ADD FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
-ADD FOREIGN KEY (return_office) REFERENCES office(office_id);
+ADD FOREIGN KEY (car_id) REFERENCES car(car_id) ON UPDATE CASCADE,
+ADD FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON UPDATE CASCADE,
+ADD FOREIGN KEY (return_office) REFERENCES office(office_id) ON UPDATE CASCADE;

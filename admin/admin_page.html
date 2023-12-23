@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../includes/site_layout.css">
     <link rel="stylesheet" href="admin.css">
- 
-   
+
+
 </head>
 
 <body class="background">
     <script src="logic.js"></script>
     <!-- Header Content -->
     <header>
-        <h1>Admin</h1>
+        <h1>Admin Portal</h1>
     </header>
     <script src="../includes/site_layout.js"></script>
     <!-- Body Content -->
@@ -28,35 +28,94 @@
 
         <div class="form-container">
             <div id="form1" class="form">
-                <!-- Form content for Button 1 -->
                 <h2>Insert</h2>
-                <form action="admin_page.html" method="post" onsubmit="return validateAdd()">
+                <form action="admin.php" method="post" onsubmit="return validateInsert()">
+                    <input type="hidden" id="type" name="type" value='1'>
                     <div class="form-row">
                         <label for="field1">Company Name:</label>
-                        <input type="text" id="field1" name="field1" placeholder="Enter text">
+                        <input type="text" id="field1" name="company_name" placeholder="Enter Company">
                     </div>
                     <div class="form-row">
                         <label for="field2">Model Name:</label>
-                        <input type="text" id="field2" name="field2" placeholder="Enter text">
+                        <input type="text" id="field2" name="model_name" placeholder="Enter Model">
                     </div>
                     <div class="form-row">
                         <label for="field3">Year:</label>
-                        <input type="text" id="field3" name="field3" placeholder="Enter text">
+                        <input type="text" id="field3" name="year_made" placeholder="Enter Year">
+                    </div>
+                    <div class="form-row">
+                        <label for="field3">Price/Day:</label>
+                        <input type="number" id="field4" name="price" placeholder="Enter Price">
+                    </div>
+                    <div>
+                        <label for="dropdown">Select Office Id:</label>
+                        <select name="office_num" id="dropdown">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                     </div>
                     <div class="form-row">
                         <label for="field4">Image:</label>
-                        <input type="file" id="imageUpload" name="imageUpload" accept="image/*">
+                        <input type="file" id="imageUpload" name="image_path" accept="image/*">
                     </div>
                     <div class="form-row submit-btn">
                         <input type="submit" value="Submit">
                     </div>
                 </form>
             </div>
+            <div id="form2" class="form">
+                <h2>Modify</h2>
+                <form action="admin.php" method="post" onsubmit="return validateModify()">
+                    <input type="hidden" id="type" name="type" value='2'>
+                    <div class="form-row">
+                        <label for="field5">Car Id:</label>
+                        <input type="text" id="field5" name="car_id" placeholder="Enter Car Id">
+                    </div>
+                    <div class="form-row">
+                        <label for="field6">New Status:</label>
+                        <input type="text" id="field6" name="status" placeholder="Enter Status">
+                    </div>
+                    <div class="form-row submit-btn">
+                        <input type="submit" value="Submit">
 
+                    </div>
+                </form>
+            </div>
+            <div id="form3" class="form">
+                <h2>Remove</h2>
+                <form action="admin.php" method="post" onsubmit="return validateReservation()">
+                    <input type="hidden" id="type" name="type" value='3'>
+                    <div class="form-row">
+                        <label for="field7">Reservation Id:</label>
+                        <input type="text" id="field1" name="reserve_id" placeholder="Enter Reservation Id">
+                    </div>
+                    <div class="form-row submit-btn">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+            <div id="form4" class="form">
+                <h2>Will be out of Service</h2>
+                <form action="admin.php" method="post" onsubmit="return validateDelete()">
+                    <input type="hidden" id="type" name="type" value='4'>
+                    <div class="form-row">
+                        <label for="field8">Car Id:</label>
+                        <input type="text" id="field1" name="car_id" placeholder="Enter Car Id">
+                    </div>
+                    <div class="form-row submit-btn">
+                        <input type="submit" value="Submit">
+
+                    </div>
+                </form>
+            </div>
         </div>
+
+    </div>
     </div>
 
-   
+
 </body>
 
 </html>
