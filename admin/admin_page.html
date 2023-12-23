@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../includes/site_layout.css">
+    <link rel="stylesheet" href="admin.css">
+ 
+   
+</head>
+
+<body class="background">
+    <script src="logic.js"></script>
+    <!-- Header Content -->
+    <header>
+        <h1>Admin</h1>
+    </header>
+    <script src="../includes/site_layout.js"></script>
+    <!-- Body Content -->
+    <div class="container">
+        <div class="button-container">
+            <button onclick="toggleForm('form1')">Add Car</button>
+            <button onclick="toggleForm('form2')">Modify Car Status</button>
+            <button onclick="toggleForm('form3')">Remove Reservation</button>
+            <button onclick="toggleForm('form4')">Delete Car</button>
+        </div>
+
+        <div class="form-container">
+            <div id="form1" class="form">
+                <!-- Form content for Button 1 -->
+                <h2>Insert</h2>
+                <form action="admin_page.html" method="post" onsubmit="return validateAdd()">
+                    <div class="form-row">
+                        <label for="field1">Company Name:</label>
+                        <input type="text" id="field1" name="field1" placeholder="Enter text">
+                    </div>
+                    <div class="form-row">
+                        <label for="field2">Model Name:</label>
+                        <input type="text" id="field2" name="field2" placeholder="Enter text">
+                    </div>
+                    <div class="form-row">
+                        <label for="field3">Year:</label>
+                        <input type="text" id="field3" name="field3" placeholder="Enter text">
+                    </div>
+                    <div class="form-row">
+                        <label for="field4">Image:</label>
+                        <input type="file" id="imageUpload" name="imageUpload" accept="image/*">
+                    </div>
+                    <div class="form-row submit-btn">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+   
+</body>
+
+</html>

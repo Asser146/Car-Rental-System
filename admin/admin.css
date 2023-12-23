@@ -1,0 +1,68 @@
+.container {
+    padding: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Add margin to separate button container from form container */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-container {
+    margin-top: 20px;
+}
+
+.form {
+    display: none;
+    margin-top: 10px;
+}
+
+.form form {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-row {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.input-container {
+    width: 48%; /* Adjust the width as needed */
+    box-sizing: border-box;
+    margin-right: 2%; /* Adjust the spacing between input containers */
+    display: inline-block;
+}
+
+label {
+    color: aliceblue;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #d30404;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.show {
+    display: block;
+}
