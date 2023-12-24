@@ -1,3 +1,5 @@
+CREATE DATABASE `car rental company`;
+USE `car rental company`;
 CREATE TABLE car (
     car_id INT AUTO_INCREMENT PRIMARY KEY,
     company VARCHAR(255),
@@ -52,3 +54,4 @@ ALTER TABLE reservation
 ADD FOREIGN KEY (car_id) REFERENCES car(car_id) ON UPDATE CASCADE,
 ADD FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON UPDATE CASCADE,
 ADD FOREIGN KEY (return_office) REFERENCES office(office_id) ON UPDATE CASCADE;
+
