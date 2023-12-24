@@ -1,4 +1,3 @@
-
 function toggleForm(formId) {
     var form = document.getElementById(formId);
 
@@ -17,6 +16,7 @@ function toggleForm(formId) {
         form.classList.add('show');
     }
 }
+
 function validateInsert() {
     if (document.getElementById("field1").value == "") {
         alert('Add field');
@@ -66,9 +66,41 @@ function validateReservation() {
         alert('Add field');
         return false
     }
-}
-function validateDelete() {
     if (document.getElementById("field8").value == "") {
+        alert('Add field');
+        return false
+    }
+}
+function validateCarRes() {
+    if (document.getElementById("field9").value == "") {
+        alert('Add field');
+        return false
+    }
+    if (document.getElementById("field10").value == "") {
+        alert('Add field');
+        return false
+    }
+    if (document.getElementById("field11").value == "") {
+        alert('Add field');
+        return false
+    }
+
+}
+function validateStatus() {
+    if (document.getElementById("field12").value == "") {
+        alert('Add field');
+        return false
+    }
+
+}
+function validateCustomerRes() {
+    if (document.getElementById("field13").value == "") {
+        alert('Add field');
+        return false
+    }
+}
+function validateFinance() {
+    if (document.getElementById("field14").value == "") {
         alert('Add field');
         return false
     }
