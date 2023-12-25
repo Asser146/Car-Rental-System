@@ -106,3 +106,37 @@ function validateFinance() {
     }
 
 }
+function validateStaff() {
+    if (document.getElementById("reg1").value == "") {
+        alert('Write First Name !')
+        return false
+    }
+    else if (document.getElementById("reg2").value == "") {
+        alert('Write Last Name !')
+        return false
+    }
+    else if (document.getElementById("reg3").value == "") {
+        alert('Write Email !');
+        return false;
+    }
+    else if (document.getElementById("reg4").value == "") {
+        alert('Write Password !');
+        return false;
+    }
+    else if (document.getElementById("reg5").value == "") {
+        alert('Write Confirmation Password !');
+        return false;
+    }
+    else if (document.getElementById("reg6").value == "" || document.getElementById("reg6").value > 4 || document.getElementById("reg6").value < 1) {
+        alert('Choose Office!');
+        return false;
+    }
+    else {
+        if (document.getElementById("reg5").value == document.getElementById("reg4").value)
+            return true;
+        else {
+            alert('Passwords Miss-Match!');
+            return false;
+        }
+    }
+}
