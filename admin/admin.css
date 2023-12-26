@@ -1,7 +1,17 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    padding: 0;
+}
 .container {
     padding: 20px;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    
 }
-
 .button-container {
     display: flex;
     justify-content: space-between;
