@@ -40,7 +40,8 @@ if ($authType == 1) { // Login mode
             $_SESSION['login'] = 1;
             $_SESSION['customer_id'] = $row['customer_id'];
             $_SESSION['fname'] = $row['Fname'];
-            header("Location: main.php");
+            $main = ($userType == 1) ? "main.php" : "admin/admin_page.html";
+            header("Location: {$main}");
             exit();
         } else {
             // Incorrect email or password
