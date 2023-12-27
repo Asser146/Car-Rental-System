@@ -1,10 +1,12 @@
 html, body {
     height: 100%;
     width: 100%;
+    background: linear-gradient(to right, #e1eec3,#f05053); 
     margin: 0;
     display: flex;
     padding: 0;
 }
+
 .container {
     padding: 20px;
     height: 100%;
@@ -48,13 +50,14 @@ button {
 
 .input-container {
     width: 48%; /* Adjust the width as needed */
+    color: black;
     box-sizing: border-box;
     margin-right: 2%; /* Adjust the spacing between input containers */
     display: inline-block;
 }
 
 label {
-    color: aliceblue;
+    color:black;
     display: block;
     margin-bottom: 5px;
 }
