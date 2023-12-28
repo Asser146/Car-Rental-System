@@ -43,7 +43,14 @@ CREATE TABLE reservation (
     return_date DATE,
     return_office INT
 );
-
+CREATE TABLE payment (
+    reservation_id INT,
+    start_date DATE,
+    return_date DATE,
+    total_payment int,  -- Adjust the precision and scale based on your currency and requirements
+    PRIMARY KEY(reservation_id,start_date,return_date),
+    FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id) ON UPDATE CASCADE
+);
 ALTER TABLE car
 ADD FOREIGN KEY (office_num) REFERENCES office(office_id) ON UPDATE CASCADE;
 

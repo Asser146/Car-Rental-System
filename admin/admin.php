@@ -92,43 +92,22 @@ switch ($type) {
         break;
 
         case '7':
-            // $start_date = $_POST["start_date"];
-            // $end_date = $_POST["end_date"];
-            // $start = new DateTime($start_date);
-            // $end = new DateTime($end_date);
-            // $interval = new DateInterval('P1D'); // 1 day interval
-            // $dateRange = new DatePeriod($start, $interval, $end);
-        
-            // echo '<table>';
-            // echo '<tr><th>Date</th><th>Total Daily Payments</th></tr>';
-        
-            // foreach ($dateRange as $date) {
-            //     $current = $date->format('Y-m-d');
-            //     $sql="SELECT *
-            //     FROM reservation
-            //     WHERE $current BETWEEN reservation.start_date AND reservation.return_date";
-                
+            $start_date = $_POST["start_date"];
+            $end_date = $_POST["end_date"];
+            $sql = "SELECT start_date AS payment_day, SUM(total_payment) AS total_payment
+            FROM payment 
+            WHERE start_date BETWEEN '$start_date' AND '$end_date'
+            GROUP BY start_date";
+               
+            
+            $result = $data_base->query($sql);
 
-            //     $result = $data_base->query($sql);
-        
-            //     if ($result->num_rows > 0) {
-            //         while ($row = $result->fetch_assoc()) {
-            //             echo '<tr>';
-            //             echo '<td>' . htmlspecialchars($current) . '</td>';
-            //             echo '<td>' . htmlspecialchars($row['car_id']) . '</td>';
-            //             echo '<td>' . htmlspecialchars($row['total_daily_payments']) . '</td>';
-            //             echo '</tr>';
-            //         }
-            //     } else {
-            //         // If there are no results for the current date
-            //         echo '<tr><td>' . htmlspecialchars($current) . '</td><td>No Result</td></tr>';
-            //     }
-            // }
-        
-            // echo '</table>';
-            break;
-        
+        if ($result === false) {
+            die("Error in SQL query: " . $data_base->error);
+        }
 
+        display($result);    
+        break;
     default:
         // Handle the default case or add additional cases as needed
         break;
