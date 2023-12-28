@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, #e1eec3, #f05053);
+    display: flex;
+    padding: 0;
+    margin: 0; /* Reset default margin */
+}
+
+.container {
+    padding: 20px;
+    flex-direction: column;
+    margin-top: 150px; /* Apply margin to move the container down */
+    height: 100%;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Rest of your styles... */
