@@ -83,7 +83,6 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="main.php">Home</a></li>
                         <li><a href="search-car-result.php">Search</a></li>
-                        <li><a href="office.html">Offices</a></li>
                     </ul>
 
                     <?php if (isset($_SESSION['login']) && $_SESSION['login'] != 0) { ?>
@@ -108,6 +107,10 @@
     <!-- Navigation end -->
 
 </header>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script> 
 
 
 </body>

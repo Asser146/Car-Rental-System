@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="includes/site_layout.css">
+    <link rel="stylesheet" href="reserve.css">
+</head>
+
+<script src="admin/admin.js"></script>
+
+<!-- Header Content -->
+<header>
+    <h1>Reservation</h1>
+</header>
+
+<script src="includes/site_layout.js"></script>
+
+<!-- Body Content -->
+<body>
+
+    <div class="container">
+        <div class="form-container">
+            <div id="form1" class="form">
+                <h2>Please select the reservation date of your car</h2>
+                <form id="reservationForm" action="payment.php" method="post" onsubmit="return validateReservation()">
+                    <!-- Add the hidden input for car_id, customer_id, start_date, and end_date -->
+                    <input type="hidden" id="car_id" name="car_id">
+                    <input type="hidden" id="customer_id" name="customer_id">
+                    <input type="hidden" id="start_date" name="start_date">
+                    <input type="hidden" id="end_date" name="end_date">
+                    <div class="form-row">
+                        <label for="field1">Start Date:</label>
+                        <input type="date" id="field1" name="start_date" pattern="\d{4}-\d{2}-\d{2}" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="field2">Return Date:</label>
+                        <input type="date" id="field2" name="end_date" pattern="\d{4}-\d{2}-\d{2}" required>
+                    </div>
+                    <div class="form-row payment-btn">
+                        <input type="submit" value="Pay">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getCarAndCustomerId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                car_id: urlParams.get('vhid'),
+                customer_id: urlParams.get('customer_id')
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const { car_id, customer_id } = getCarAndCustomerId();
+
+            fetchReservedDates(car_id)
+                .then(reservedDates => {
+                    const startDateInput = document.getElementById('field1');
+                    const endDateInput = document.getElementById('field2');
+
+                    const today = new Date().toISOString().split('T')[0];
+                    startDateInput.min = today;
+
+                    startDateInput.addEventListener('input', function () {
+                        endDateInput.min = startDateInput.value;
+
+                        const reservedStart = new Date(startDateInput.value);
+                        const reservedEnd = new Date(endDateInput.value);
+                        endDateInput.disabled = reservedDates.some(date =>
+                            isDateBetween(new Date(date), reservedStart, reservedEnd)
+                        );
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching reserved dates:', error);
+                });
+
+            const reservationForm = document.getElementById('reservationForm');
+
+            reservationForm.addEventListener('submit', function (event) {
+                // Set the values of hidden inputs before submitting the form
+                document.getElementById('car_id').value = car_id;
+                document.getElementById('customer_id').value = customer_id;
+                document.getElementById('start_date').value = startDateInput.value;
+                document.getElementById('end_date').value = endDateInput.value;
+            });
+        });
+    </script>
+
+</body>
+
+</html>

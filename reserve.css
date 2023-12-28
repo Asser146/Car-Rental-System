@@ -31,7 +31,7 @@ button {
 }
 
 .form {
-    display: none;
+    display: flex;
     margin-top: 10px;
 }
 

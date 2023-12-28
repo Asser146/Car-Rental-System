@@ -104,7 +104,10 @@ function validateFinance() {
         alert('Add field');
         return false
     }
-
+    if (document.getElementById("field15").value == "") {
+        alert('Add field');
+        return false
+    }
 }
 function validateStaff() {
     if (document.getElementById("reg1").value == "") {

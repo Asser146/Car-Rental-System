@@ -159,8 +159,12 @@
             <form action="admin.php" method="post" onsubmit="return validateFinance()">
                 <input type="hidden" id="type" name="type" value='7'>
                 <div class="form-row">
-                    <label for="field7">Customer Id::</label>
-                    <input type="number" id="field14" name="customer_id">
+                    <label for="field7">Start Date:</label>
+                    <input type="date" id="field14" name="start_date">
+                </div>
+                <div class="form-row">
+                    <label for="field7">End Date:</label>
+                    <input type="date" id="field15" name="end_date">
                 </div>
                 <div class="form-row submit-btn">
                     <input type="submit" value="Submit">
@@ -203,9 +207,7 @@
                 </div>
             </form>
         </div>
-    </div>
-    <object type="text/html" data="../main.php" width="100%" height="100%" style="border: none;"></object>
-    
+    </div>    
 </div>
 
 </body>
