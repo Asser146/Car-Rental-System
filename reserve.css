@@ -1,82 +1,24 @@
 html, body {
     height: 100%;
     width: 100%;
-    background: linear-gradient(to right, #e1eec3,#f05053); 
-    margin: 0;
+    background: linear-gradient(to right, #e1eec3, #f05053);
     display: flex;
     padding: 0;
+    margin: 0; /* Reset default margin */
 }
 
 .container {
     padding: 20px;
+    flex-direction: column;
+    margin-top: 150px; /* Apply margin to move the container down */
     height: 100%;
     width: 100%;
-    flex-direction: column;
-    
 }
+
 .button-container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px; /* Add margin to separate button container from form container */
+    margin-bottom: 20px;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.form-container {
-    margin-top: 20px;
-}
-
-.form {
-    display: flex;
-    margin-top: 10px;
-}
-
-.form form {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.form-row {
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-}
-
-.input-container {
-    width: 48%; /* Adjust the width as needed */
-    color: black;
-    box-sizing: border-box;
-    margin-right: 2%; /* Adjust the spacing between input containers */
-    display: inline-block;
-}
-
-label {
-    color:black;
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-}
-
-input[type="submit"] {
-    /* -cobackgroundlor: #d30404; */
-    background: -webkit-linear-gradient(right, #2232c9, #d30404);
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    width: 25%;
-}
-
-.show {
-    display: block;
-}
+/* Rest of your styles... */

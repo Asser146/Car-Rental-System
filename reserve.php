@@ -8,26 +8,30 @@
     <link rel="stylesheet" href="reserve.css">
 </head>
 
-<script src="admin/admin.js"></script>
-
 <!-- Header Content -->
 <header>
     <h1>Reservation</h1>
 </header>
 
-<script src="includes/site_layout.js"></script>
-
 <!-- Body Content -->
-<body>
+<body style="margin-top: 100px">
 
     <div class="container">
         <div class="form-container">
             <div id="form1" class="form">
                 <h2>Please select the reservation date of your car</h2>
                 <form id="reservationForm" action="payment.php" method="post" onsubmit="return validateReservation()">
+                    <?php
+                    // Start PHP Session
+                    session_start();
+
+                    // Fetch car_id and customer_id from the session
+                    $car_id = isset($_SESSION['car_id']) ? $_SESSION['car_id'] : '';
+                    $customer_id = isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : '';
+                    ?>
                     <!-- Add the hidden input for car_id, customer_id, start_date, and end_date -->
-                    <input type="hidden" id="car_id" name="car_id">
-                    <input type="hidden" id="customer_id" name="customer_id">
+                    <input type="hidden" id="car_id" name="car_id" value="<?php echo htmlspecialchars($car_id); ?>">
+                    <input type="hidden" id="customer_id" name="customer_id" value="<?php echo htmlspecialchars($customer_id); ?>">
                     <input type="hidden" id="start_date" name="start_date">
                     <input type="hidden" id="end_date" name="end_date">
                     <div class="form-row">
@@ -47,21 +51,15 @@
     </div>
 
     <script>
-        function getCarAndCustomerId() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return {
-                car_id: urlParams.get('vhid'),
-                customer_id: urlParams.get('customer_id')
-            };
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
-            const { car_id, customer_id } = getCarAndCustomerId();
+            let startDateInput, endDateInput;
 
-            fetchReservedDates(car_id)
+            // Assume fetchReservedDates is defined elsewhere in your code
+            // You may need to modify this part based on your actual implementation
+            fetchReservedDates(<?php echo json_encode($car_id); ?>)
                 .then(reservedDates => {
-                    const startDateInput = document.getElementById('field1');
-                    const endDateInput = document.getElementById('field2');
+                    startDateInput = document.getElementById('field1');
+                    endDateInput = document.getElementById('field2');
 
                     const today = new Date().toISOString().split('T')[0];
                     startDateInput.min = today;
@@ -84,8 +82,6 @@
 
             reservationForm.addEventListener('submit', function (event) {
                 // Set the values of hidden inputs before submitting the form
-                document.getElementById('car_id').value = car_id;
-                document.getElementById('customer_id').value = customer_id;
                 document.getElementById('start_date').value = startDateInput.value;
                 document.getElementById('end_date').value = endDateInput.value;
             });
