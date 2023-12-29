@@ -6,15 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="includes/site_layout.css">
     <link rel="stylesheet" href="reserve.css">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e1eec3, #f05053);
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            border: 3px solid grey;
+        }
+    </style>
 </head>
 
 <!-- Header Content -->
-<header>
-    <h1>Reservation</h1>
-</header>
-
-<!-- Body Content -->
-<body style="margin-top: 100px">
+<body>
 
     <div class="container">
         <div class="form-container">
@@ -26,15 +43,16 @@
                     session_start();
 
                     // Fetch car_id and customer_id from the session
-                    $car_id = isset($_SESSION['car_id']) ? $_SESSION['car_id'] : '';
-                    $customer_id = isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : '';
+                    $car_id = $_SESSION['car_id'] ?? '';
+                    $customer_id = $_SESSION['customer_id'] ?? '';
+                    $price_per_day = $_SESSION['price_per_day'] ?? '';
                     ?>
                     <!-- Add the hidden input for car_id, customer_id, start_date, end_date, and price_per_day -->
-                    <input type="hidden" id="car_id" name="car_id" value="<?php echo htmlspecialchars($car_id); ?>">
-                    <input type="hidden" id="customer_id" name="customer_id" value="<?php echo htmlspecialchars($customer_id); ?>">
+                    <input type="hidden" id="car_id" name="car_id" value="<?= htmlspecialchars($car_id); ?>">
+                    <input type="hidden" id="customer_id" name="customer_id" value="<?= htmlspecialchars($customer_id); ?>">
                     <input type="hidden" id="start_date" name="start_date">
                     <input type="hidden" id="end_date" name="end_date">
-                    <input type="hidden" id="price_per_day" name="price_per_day" value="<?php echo htmlspecialchars($_SESSION['price_per_day']); ?>">
+                    <input type="hidden" id="price_per_day" name="price_per_day" value="<?= htmlspecialchars($price_per_day); ?>">
 
                     <div class="form-row">
                         <label for="field1">Start Date:</label>
@@ -50,6 +68,54 @@
                 </form>
             </div>
         </div>
+        <?php
+// Database connection
+$host = "127.0.0.1";
+$username = "root";
+$password = "";
+$database = "car rental company";
+
+$conn = new mysqli($host, $username, $password, $database);
+
+// Check the database connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} else {
+    $car_id = $_SESSION['car_id'] ?? '';
+
+    $sql = "SELECT reservation.start_date, reservation.return_date
+            FROM reservation 
+            JOIN car ON reservation.car_id = car.car_id
+            WHERE car.car_id = '$car_id' AND (reservation.start_date > CURDATE() OR reservation.return_date > CURDATE())";
+
+    $result = $conn->query($sql);
+    echo 'PREVIOUS RESERVATIONS: ';
+    if ($result->num_rows > 0) {
+        echo '<table>';
+        // Display headers based on column names
+        echo '<tr>';
+        $row = $result->fetch_assoc();
+        foreach ($row as $key => $value) {
+            echo '<th>' . htmlspecialchars($key) . '</th>';
+        }
+        echo '</tr>';
+        // Display data rows
+        $result->data_seek(0); // Reset the result set pointer
+        while ($row = $result->fetch_assoc()) {
+            echo '<tr>';
+            foreach ($row as $value) {
+                echo '<td>' . htmlspecialchars($value) . '</td>';
+            }
+            echo '</tr>';
+        }
+        echo '</table>';
+    } else {
+        echo "NONE";  
+    }
+}
+?>
+
+
     </div>
 
     <script>
@@ -89,7 +155,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>

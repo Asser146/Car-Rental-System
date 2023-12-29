@@ -10,9 +10,8 @@ html, body {
 .container {
     padding: 20px;
     flex-direction: column;
-    margin-top: 150px; /* Apply margin to move the container down */
-    height: 100%;
-    width: 100%;
+    margin: auto; /* Center the container both horizontally and vertically */
+    width: 50%; /* Adjust the width as needed */
 }
 
 .button-container {

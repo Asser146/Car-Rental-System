@@ -148,7 +148,6 @@
     <?php
     // Include only the specific function
     include 'functions.php';
-    echo "HIIIIIIII";
     // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve form data
