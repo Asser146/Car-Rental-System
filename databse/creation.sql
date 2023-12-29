@@ -49,8 +49,9 @@ CREATE TABLE payment (
     return_date DATE,
     total_payment int,  -- Adjust the precision and scale based on your currency and requirements
     PRIMARY KEY(reservation_id,start_date,return_date),
-    FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id) ON UPDATE CASCADE
+    FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id)
 );
+
 ALTER TABLE car
 ADD FOREIGN KEY (office_num) REFERENCES office(office_id) ON UPDATE CASCADE;
 
@@ -61,4 +62,61 @@ ALTER TABLE reservation
 ADD FOREIGN KEY (car_id) REFERENCES car(car_id) ON UPDATE CASCADE,
 ADD FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON UPDATE CASCADE,
 ADD FOREIGN KEY (return_office) REFERENCES office(office_id) ON UPDATE CASCADE;
+
+DELIMITER //
+CREATE TRIGGER after_reservation_insert
+AFTER INSERT ON reservation
+FOR EACH ROW
+BEGIN
+    DECLARE total_payment INT;
+
+    -- Fetch the price_per_day from the related car
+    SELECT car.price_per_day INTO total_payment
+    FROM car
+    WHERE car.car_id = NEW.car_id;
+
+    -- Calculate total_payment based on your logic
+    -- For example, you can use DATEDIFF to calculate the duration of the reservation
+    SET total_payment = DATEDIFF(NEW.return_date, NEW.start_date) * total_payment;
+
+    -- Insert into the payment table
+    INSERT INTO payment (reservation_id, start_date, return_date, total_payment)
+    VALUES (NEW.reservation_id, NEW.start_date, NEW.return_date, total_payment);
+END;
+//
+DELIMITER ;
+
+CREATE VIEW car_status_view AS
+SELECT
+    c.car_id,
+    c.company,
+    c.model,
+    c.year_made,
+    c.image_path,
+    r.start_date AS reservation_start_date,
+    r.return_date AS reservation_return_date,
+    CASE
+        WHEN CURDATE() BETWEEN r.start_date AND r.return_date THEN 'Reserved'
+        ELSE 'Available'
+    END AS car_status,
+    c.price_per_day,
+    c.office_num
+FROM
+    car c
+LEFT JOIN reservation r ON c.car_id = r.car_id;
+
+
+DELIMITER //
+
+-- Trigger to delete reservations when changing car status from 'Rented' to 'Available'
+CREATE TRIGGER before_update_car_status
+BEFORE UPDATE ON car
+FOR EACH ROW
+BEGIN
+    IF OLD.car_status = 'Rented' AND NEW.car_status = 'Available' THEN
+        DELETE FROM reservation
+        WHERE car_id = NEW.car_id AND CURDATE() BETWEEN start_date AND return_date;
+    END IF;
+END;
+//
 
