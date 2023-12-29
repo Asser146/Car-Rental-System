@@ -1,13 +1,11 @@
 <?php
 include 'functions.php';
 
-// Retrieve the operation type from the POST data
-$type = $_POST["type"];
+function processFormData($type){
 
 // Initialize the database connection
 global $data_base;
 $data_base = connectToDatabase();
-
 // Process based on the operation type
 switch ($type) {
     case '1':
@@ -112,7 +110,7 @@ switch ($type) {
         // Handle the default case or add additional cases as needed
         break;
 }
-
 // Close the database connection
 $data_base->close();
+}
 ?>

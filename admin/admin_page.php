@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../includes/site_layout.css">
     <link rel="stylesheet" href="admin.css">
-
-
 </head>
-
 <script src="admin.js"></script>
-<!-- Header Content -->
 <header>
     <h1>Admin Portal</h1>
 </header>
 <script src="../includes/site_layout.js"></script>
-<!-- Body Content -->
 <body>
-    
 <div class="container">
     <div class="button-container">
         <button onclick="toggleForm('form1')">Add Car</button>
@@ -32,8 +25,8 @@
     </div>
     <div class="form-container">
         <div id="form1" class="form">
-            <h2>Insert New Car </h2>
-            <form action="admin.php" method="post" onsubmit="return validateInsert()">
+            <h2>Insert New Car To The System</h2>
+            <form method="post" onsubmit="return validateInsert()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <input type="hidden" id="type" name="type" value='1'>
                 <div class="form-row">
                     <label for="field1">Company Name:</label>
@@ -70,8 +63,8 @@
             </form>
         </div>
         <div id="form2" class="form">
-            <h2>Modify</h2>
-            <form action="admin.php" method="post" onsubmit="return validateModify()">
+            <h2>Modify Car Status</h2>
+            <form method="post" onsubmit="return validateModify()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <input type="hidden" id="type" name="type" value='2'>
                 <div class="form-row">
                     <label for="field5">Car Id:</label>
@@ -83,13 +76,12 @@
                 </div>
                 <div class="form-row submit-btn">
                     <input type="submit" value="Submit">
-
                 </div>
             </form>
         </div>
         <div id="form3" class="form">
             <h2>Display Reservations Within a Specified Period including all Car and Customer Info</h2>
-            <form action="admin.php" method="post" onsubmit="return validateReservation()">
+            <form method="post" onsubmit="return validateReservation()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <input type="hidden" id="type" name="type" value='3'>
                 <div class="form-row">
                     <label for="field7">Start Date:</label>
@@ -106,7 +98,7 @@
         </div>
         <div id="form4" class="form">
             <h2>Display All reservations of any Car within a specified period including all Car Info</h2>
-            <form action="admin.php" method="post" onsubmit="return validateCarRes()">
+            <form method="post" onsubmit="return validateCareRes()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <input type="hidden" id="type" name="type" value='4'>
                 <div class="form-row">
                     <label for="field8">Car Id:</label>
@@ -128,7 +120,7 @@
         </div>
         <div id="form5" class="form">
             <h2>Display The status of all Cars on a specific day</h2>
-            <form action="admin.php" method="post" onsubmit="return validateStatus()">
+            <form method="post" onsubmit="return validateStatus()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <input type="hidden" id="type" name="type" value='5'>
                 <div class="form-row">
                     <label for="field7">Status on Day:</label>
@@ -142,7 +134,7 @@
         </div>
         <div id="form6" class="form">
             <h2>Customer Reservation</h2>
-            <form action="admin.php" method="post" onsubmit="return validateCustomerRes()">
+            <form method="post" onsubmit="return validateCustomerRes()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <input type="hidden" id="type" name="type" value='6'>
                 <div class="form-row">
                     <label for="field7">Customer Id::</label>
@@ -150,13 +142,12 @@
                 </div>
                 <div class="form-row submit-btn">
                     <input type="submit" value="Submit">
-
                 </div>
             </form>
         </div>
         <div id="form7" class="form">
             <h2>Display Daily payments within specific period</h2>
-            <form action="admin.php" method="post" onsubmit="return validateFinance()">
+            <form method="post" onsubmit="return validateFinance()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <input type="hidden" id="type" name="type" value='7'>
                 <div class="form-row">
                     <label for="field7">Start Date:</label>
@@ -168,7 +159,6 @@
                 </div>
                 <div class="form-row submit-btn">
                     <input type="submit" value="Submit">
-
                 </div>
             </form>
         </div>
@@ -203,13 +193,23 @@
                 </div>
                 <div class="form-row submit-btn">
                     <input type="submit" value="Submit">
-
                 </div>
             </form>
         </div>
+        <?php
+    // Include only the specific function
+    include 'forms.php';
+    // Check if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve form data
+        $type = $_POST["type"];
+        // Call the specific function
+        processFormData($type); // Calls the function from functions.php
+    }
+    ?>
     </div>    
 </div>
 
 </body>
-
 </html>
+
