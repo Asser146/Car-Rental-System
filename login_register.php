@@ -40,7 +40,7 @@ if ($authType == 1) { // Login mode
             $_SESSION['login'] = 1;
             $_SESSION['customer_id'] = $row['customer_id'];
             $_SESSION['fname'] = $row['Fname'];
-            $main = ($userType == 1) ? "main.php" : "admin/admin_page.html";
+            $main = ($userType == 1) ? "main.php" : "admin/admin_page.php";
             header("Location: {$main}");
             exit();
         } else {
@@ -67,12 +67,12 @@ if ($authType == 1) { // Login mode
             "INSERT INTO $table (Fname, Lname, office_num, email, pass) VALUES ('$fname', '$lname', '$office_num', '$input_email', '$input_pass')";
     } else {
         ($userType == 1) ? header("Location: register_page.html?register_error=1") :
-            header("Location: admin/admin_page.html?register_error=1");
+            header("Location: admin/admin_page.php?register_error=1");
         exit();
     }
 
     $data_base->query($sql);
-    ($userType == 1) ? header("Location: main.php") : header("Location: admin/admin_page.html");
+    ($userType == 1) ? header("Location: main.php") : header("Location: admin/admin_page.php");
     exit();
 }
 ?>
