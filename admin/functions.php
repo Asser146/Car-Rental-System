@@ -33,25 +33,26 @@ function display($result) {
 <html>
 <head>
     <style>
-        body {
-            background: linear-gradient(to right, #e1eec3,#f05053); 
-            margin: 0;
-            padding: 0;
-        }
+body {
+    background: linear-gradient(to right, #e1eec3, #f05053);
+    margin: 0;
+    padding: 0;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-        th, td {
-            padding: 8px;
-            font-size: 20px;
-            font-weight: 600;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+th, td {
+    padding: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center; /* Center-align the text */
+    border: 3px solid grey; /* Add border for both columns and rows */
+}
+
     </style>
 </head>
 <body>
