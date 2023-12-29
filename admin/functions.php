@@ -121,5 +121,18 @@ function modifyStatus($car_id, $status) {
         echo "Row updated successfully!";
     }
 }
-
+function reserve($row) {
+    global $data_base;
+    $sql = "INSERT INTO reservation (";
+    $sql .= implode(", ", array_keys($row));
+    $sql .= ") VALUES ('" . implode("', '", $row) . "')";
+    $result = $data_base->query($sql);
+    if ($result === false) {
+        echo "Error inserting row: " . $data_base->error;
+    } else {
+        echo "Car Reserved successfully!";
+        header("Location: main.php");
+        exit();
+    }
+}
 ?>

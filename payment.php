@@ -24,13 +24,12 @@
                 $customer_id = $_POST['customer_id'];
                 $start_date = $_POST['start_date'];
                 $end_date = $_POST['end_date'];
-                $price_per_day = $_POST['price_per_day'];
 
                 // Calculate the cost
                 $startDateTime = new DateTime($start_date);
                 $endDateTime = new DateTime($end_date);
                 $daysDifference = $endDateTime->diff($startDateTime)->days;
-                $total_payment = $daysDifference * $price_per_day;
+               
 
                 // Access the database to get the car image path
                 $host = "127.0.0.1";
@@ -45,7 +44,16 @@
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
-
+                $sql="SELECT price_per_day FROM car WHERE car_id='$car_id'";
+                $result = $conn->query($sql);
+                if($result->num_rows>0){
+                    $row = $result->fetch_assoc();
+                    $price_per_day=$row['price_per_day'];
+                }
+                else{
+                     $price_per_day=0;
+                }
+                $total_payment = $daysDifference * $price_per_day;
                 // Query to get the car image path using a prepared statement
                 $sql = "SELECT image_path FROM car WHERE car_id = ?";
                 $stmt = $conn->prepare($sql);
@@ -70,7 +78,7 @@
                     // Display the rest of your payment form here
                     ?>
                     <h2>Enter your credit card details</h2>
-                    <form id="paymentForm" action="process_payment.php" method="post" onsubmit="return validatePayment()">
+                    <form id="paymentForm" method="post" onsubmit="return validatePayment()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                         <!-- Add hidden inputs for car_id, customer_id, start_date, end_date, and total_payment -->
                         <input type="hidden" name="car_id" value="<?= htmlspecialchars($car_id) ?>">
                         <input type="hidden" name="customer_id" value="<?= htmlspecialchars($customer_id) ?>">
@@ -137,7 +145,22 @@
             </div>
         </div>
     </div>
-
+    <?php
+    // Include only the specific function
+    include 'functions.php';
+    echo "HIIIIIIII";
+    // Check if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve form data
+        $row = array();
+        $row['car_id']=$car_id;
+        $row['customer_id']=$customer_id;
+        $row['start_date']=$start_date;
+        $row['return_date']=$end_date;
+        $row['return_office']=$office_id;
+        reserve($row); 
+    }
+    ?>
     <script src="validate_payment.js"></script>
 </body>
 
