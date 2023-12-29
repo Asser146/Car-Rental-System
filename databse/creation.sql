@@ -108,15 +108,3 @@ LEFT JOIN reservation r ON c.car_id = r.car_id;
 
 DELIMITER //
 
--- Trigger to delete reservations when changing car status from 'Rented' to 'Available'
-CREATE TRIGGER before_update_car_status
-BEFORE UPDATE ON car
-FOR EACH ROW
-BEGIN
-    IF OLD.car_status = 'Rented' AND NEW.car_status = 'Available' THEN
-        DELETE FROM reservation
-        WHERE car_id = NEW.car_id AND CURDATE() BETWEEN start_date AND return_date;
-    END IF;
-END;
-//
-
