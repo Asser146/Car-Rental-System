@@ -14,18 +14,21 @@ if (isset($_GET['vhid'])) {
 
         // Fetch car details based on car_id
         $sql = "SELECT car.*, office.Location FROM car 
-                JOIN office ON car.office_num = office.office_id 
-                WHERE car.car_id = :car_id";
+        JOIN office ON car.office_num = office.office_id 
+        WHERE car.car_id = :car_id";
         $query = $dbh->prepare($sql);
         $query->bindParam(':car_id', $car_id, PDO::PARAM_INT);
         $query->execute();
         $carDetails = $query->fetch(PDO::FETCH_OBJ);
+        // Store price_per_day in the session
+        $_SESSION['price_per_day'] = $carDetails->price_per_day; 
 
         // Include header
         include('includes/pages_header.php');
         // Include CSS file
         include('assets/css/search-page.css');
         ?>
+        
         <!-- Display car details using the fetched data -->
         <div class="container" style="margin-top: 150px;"> <!-- Set the margin-top to 150px -->
             <div class="row">
@@ -36,17 +39,12 @@ if (isset($_GET['vhid'])) {
                     </div>
                     <p>Year: <?php echo htmlentities($carDetails->year_made); ?></p>
                     <p>Price Per Day: $<?php echo htmlentities($carDetails->price_per_day); ?></p>
-                    <p>Status: 
-                        <?php if ($carDetails->car_status == 'Available') : ?>
-                            <span style="color: green;"><?php echo htmlentities($carDetails->car_status); ?></span>
-                            <a href="reserve.php" style="color: green; text-decoration: none;">
-                                <span style="color: green; background-color: #c8e6c9; padding: 10px; margin-left: 10px;">Reserve</span>
-                            </a>
-                        <?php else : ?>
-                            <span style="color: red;"><?php echo htmlentities($carDetails->car_status); ?></span>
-                        <?php endif; ?>
-                    </p>
                     <p>Location: <?php echo htmlentities($carDetails->Location); ?></p>
+                    <p>
+                        <a href="reserve.php" style="color: green; text-decoration: none;">
+                            <span style="color: green; background-color: #c8e6c9; padding: 10px; margin-left: 10px;">Reserve</span>
+                        </a>
+                    </p>
                     <!-- Add more details as needed -->
                 </div>
             </div>

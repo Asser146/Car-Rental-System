@@ -29,11 +29,13 @@
                     $car_id = isset($_SESSION['car_id']) ? $_SESSION['car_id'] : '';
                     $customer_id = isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : '';
                     ?>
-                    <!-- Add the hidden input for car_id, customer_id, start_date, and end_date -->
+                    <!-- Add the hidden input for car_id, customer_id, start_date, end_date, and price_per_day -->
                     <input type="hidden" id="car_id" name="car_id" value="<?php echo htmlspecialchars($car_id); ?>">
                     <input type="hidden" id="customer_id" name="customer_id" value="<?php echo htmlspecialchars($customer_id); ?>">
                     <input type="hidden" id="start_date" name="start_date">
                     <input type="hidden" id="end_date" name="end_date">
+                    <input type="hidden" id="price_per_day" name="price_per_day" value="<?php echo htmlspecialchars($_SESSION['price_per_day']); ?>">
+
                     <div class="form-row">
                         <label for="field1">Start Date:</label>
                         <input type="date" id="field1" name="start_date" pattern="\d{4}-\d{2}-\d{2}" required>
