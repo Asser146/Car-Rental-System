@@ -86,25 +86,3 @@ END;
 //
 DELIMITER ;
 
-CREATE VIEW car_status_view AS
-SELECT
-    c.car_id,
-    c.company,
-    c.model,
-    c.year_made,
-    c.image_path,
-    r.start_date AS reservation_start_date,
-    r.return_date AS reservation_return_date,
-    CASE
-        WHEN CURDATE() BETWEEN r.start_date AND r.return_date THEN 'Reserved'
-        ELSE 'Available'
-    END AS car_status,
-    c.price_per_day,
-    c.office_num
-FROM
-    car c
-LEFT JOIN reservation r ON c.car_id = r.car_id;
-
-
-DELIMITER //
-

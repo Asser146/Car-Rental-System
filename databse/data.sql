@@ -106,13 +106,3 @@ VALUES
     (12, 12, '2023-12-01', '2023-12-08', 4)
     ;
 
--- Example entries for the first 14 reservations
-INSERT INTO payment (reservation_id, start_date, return_date, total_payment)
-SELECT
-    reservation_id,
-    start_date,
-    return_date,
-    DATEDIFF(return_date, start_date) * price_per_day AS total_payment
-FROM reservation
-JOIN car ON reservation.car_id = car.car_id
-WHERE reservation_id BETWEEN 1 AND 14;
