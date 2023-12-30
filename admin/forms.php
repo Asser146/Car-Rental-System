@@ -55,24 +55,19 @@ switch ($type) {
 
     case '5':
         $day = $_POST["day"];
-        initDB($day);
-
-        $sql = "SELECT DISTINCT car.car_id, car.car_status 
-                FROM car 
-                LEFT JOIN reservation ON reservation.car_id = car.car_id";
+        $sql ="SELECT car.car_id,
+            CASE
+                WHEN '$day' BETWEEN reservation.start_date AND reservation.return_date THEN 'Reserved'
+                ELSE 'Available'
+            END AS car_status
+        FROM
+            car 
+        LEFT JOIN reservation  ON car.car_id = reservation.car_id
+        ORDER BY car.car_id";
         $result = $data_base->query($sql);
-
-        if ($result) {
-            display($result);
-        } else {
-            echo "Error executing query: " . $data_base->error;
-        }
-
-        // Return to the original date
-        $currentDate = date('Y-m-d');
-        initDB($currentDate);
+        display($result);
         break;
-
+        
     case '6':
         $customer_id = $_POST["customer_id"];
         $sql = "SELECT customer.customer_id, customer.Fname, customer.Lname, customer.email, car.company, car.model, car.year_made, car.car_id
