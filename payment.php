@@ -8,9 +8,14 @@
     <!-- Include CSS files for site layout and reservation form -->
     <link rel="stylesheet" href="includes/site_layout.css">
     <link rel="stylesheet" href="reserve.css">
+    <script>
+        function myJsFunction() {
+            alert('Rservation Confiermed');
+        }
+    </script>
 </head>
 
-<body style="margin-top: 0px">
+<body style="margin-top: 100px">
 
     <header>
         <h1>Payment</h1>
@@ -146,20 +151,98 @@
         </div>
     </div>
     <?php
-    // Include only the specific function
-    include 'functions.php';
-    // Check if the form is submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve form data
-        $row = array();
-        $row['car_id']=$car_id;
-        $row['customer_id']=$customer_id;
-        $row['start_date']=$start_date;
-        $row['return_date']=$end_date;
-        $row['return_office']=$office_id;
-        reserve($row); 
+    // Access the database to get the car image path
+    $host = "127.0.0.1";
+    $username = "root";
+    $password = "";
+    $database = "car rental company"; // Corrected the database name
+
+    // Create a database connection
+    $conn = new mysqli($host, $username, $password, $database);
+
+    // Check the database connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
+
+        // Retrieve form data
+        $car_id = $_POST['car_id'];
+        $customer_id = $_POST['customer_id'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        $return_office = $_POST['returnOffice']; // Assuming the return office is part of the form data
+
+        // Create an array with the reservation data
+        $reservationData = array(
+            'car_id' => $car_id,
+            'customer_id' => $customer_id,
+            'start_date' => $start_date,
+            'return_date' => $end_date,
+            'return_office' => $return_office
+        );
+
+        // Function to insert reservation data into the database
+        function insertReservation($conn, $reservationData)
+        {
+            $sql = "INSERT INTO reservation (car_id, customer_id, start_date, return_date, return_office) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+
+            // Bind parameters
+            $stmt->bind_param("iissi", $reservationData['car_id'], $reservationData['customer_id'], $reservationData['start_date'], $reservationData['return_date'], $reservationData['return_office']);
+
+            // Execute the statement
+            $result = $stmt->execute();
+
+            // Check if the insertion was successful
+            if ($result) {
+                echo '<script>';
+                echo 'myJsFunction();'; // Call your JavaScript function
+                echo '</script>';
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+
+            // Update car status to 'rented'
+            $updateStatusSql = "UPDATE car SET car_status = 'rented' WHERE car_id = ?";
+            $updateStatusStmt = $conn->prepare($updateStatusSql);
+            $updateStatusStmt->bind_param("i", $reservationData['car_id']);
+            $updateStatusStmt->execute();
+            $updateStatusStmt->close();
+
+            // Insert reservation data into the database
+            $insertReservationSql = "INSERT INTO reservation (car_id, customer_id, start_date, return_date, return_office) VALUES (?, ?, ?, ?, ?)";
+            $insertReservationStmt = $conn->prepare($insertReservationSql);
+            $insertReservationStmt->bind_param("iissi", $reservationData['car_id'], $reservationData['customer_id'], $reservationData['start_date'], $reservationData['return_date'], $reservationData['return_office']);
+            
+            // Execute the statement
+            $result = $insertReservationStmt->execute();
+
+            // Check if the insertion was successful
+            if ($result) {
+                echo '<script>';
+                echo 'myJsFunction();'; // Call your JavaScript function
+                echo '</script>';
+                session_destroy();
+                exit();
+            } else {
+                echo "Error: " . $insertReservationStmt->error;
+            }
+
+            // Close the statement
+            $insertReservationStmt->close();
+
+        }
+
+        // Check if the form is submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Insert reservation data into the database
+            insertReservation($conn, $reservationData);
+        }
+
+        // Close the database connection
+        $conn->close();
     ?>
+    
     <script src="validate_payment.js"></script>
 </body>
 
