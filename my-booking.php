@@ -15,13 +15,14 @@ if (!$data_base) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Fetch user bookings from the database
+// Fetch user bookings from the database and order by reservation_id
 $customer_id = $_SESSION['customer_id'];
 $sql = "SELECT reservation.reservation_id, CONCAT(car.company, ' ', car.model) AS car_name, reservation.start_date, reservation.return_date, office.Location AS return_office
         FROM reservation
         INNER JOIN car ON reservation.car_id = car.car_id
         INNER JOIN office ON reservation.return_office = office.office_id
-        WHERE reservation.customer_id = '$customer_id'";
+        WHERE reservation.customer_id = '$customer_id'
+        ORDER BY reservation.reservation_id";
 $result = $data_base->query($sql);
 
 include("includes/pages_header.php");

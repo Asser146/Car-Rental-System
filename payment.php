@@ -135,7 +135,8 @@
                         </div>
                         <div class="form-row">
                             <!-- Use type="submit" for the payment button -->
-                            <button type="submit" class="btn">Confirm Reservation</button>
+                            <button type="submit" name="confirmReservation" class="btn">Confirm Reservation</button>
+
                         </div>
                     </form>
                     <?php
@@ -151,6 +152,7 @@
         </div>
     </div>
     <?php
+    
     // Access the database to get the car image path
     $host = "127.0.0.1";
     $username = "root";
@@ -164,7 +166,7 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmReservation'])) {
         // Retrieve form data
         $car_id = $_POST['car_id'];
         $customer_id = $_POST['customer_id'];
@@ -180,28 +182,11 @@
             'return_date' => $end_date,
             'return_office' => $return_office
         );
+        
 
         // Function to insert reservation data into the database
         function insertReservation($conn, $reservationData)
         {
-            $sql = "INSERT INTO reservation (car_id, customer_id, start_date, return_date, return_office) VALUES (?, ?, ?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-
-            // Bind parameters
-            $stmt->bind_param("iissi", $reservationData['car_id'], $reservationData['customer_id'], $reservationData['start_date'], $reservationData['return_date'], $reservationData['return_office']);
-
-            // Execute the statement
-            $result = $stmt->execute();
-
-            // Check if the insertion was successful
-            if ($result) {
-                echo '<script>';
-                echo 'myJsFunction();'; // Call your JavaScript function
-                echo '</script>';
-            } else {
-                echo "Error: " . $stmt->error;
-            }
-
             // Update car status to 'rented'
             $updateStatusSql = "UPDATE car SET car_status = 'rented' WHERE car_id = ?";
             $updateStatusStmt = $conn->prepare($updateStatusSql);
@@ -222,7 +207,7 @@
                 echo '<script>';
                 echo 'myJsFunction();'; // Call your JavaScript function
                 echo '</script>';
-                session_destroy();
+                header('Location: my-booking.php');
                 exit();
             } else {
                 echo "Error: " . $insertReservationStmt->error;
@@ -232,15 +217,14 @@
             $insertReservationStmt->close();
 
         }
-
-        // Check if the form is submitted
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['confirmReservation'])) {
             // Insert reservation data into the database
             insertReservation($conn, $reservationData);
         }
 
         // Close the database connection
         $conn->close();
+    }
     ?>
     
     <script src="validate_payment.js"></script>
