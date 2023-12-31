@@ -197,7 +197,6 @@
             </form>
         </div>
         <?php
-    // Include only the specific function
     include 'forms.php';
     // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
