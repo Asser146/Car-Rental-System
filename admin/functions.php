@@ -1,4 +1,5 @@
 <?php
+
 function connectToDatabase() {
     $data_base = mysqli_connect("localhost", "root", "", "car rental company");
 
@@ -132,17 +133,8 @@ function display($result) {
 
     function modifyStatus($car_id, $status) {
         global $data_base;
-        $sql = "SELECT * FROM car WHERE car_id = '$car_id'";
-        $result = $data_base->query($sql);
-        $row = $result->fetch_assoc();
-        $row['car_status'] = $status;
-        unset($row['car_id']);
-        $sql = "UPDATE car SET ";
-        foreach ($row as $column => $value) {
-            $sql .= "$column = '$value', ";
-        }
-        $sql = rtrim($sql, ", ");
-        $sql .= " WHERE car_id = $car_id";
+        $sql = "UPDATE car SET car_status = '$status'
+                WHERE car_id='$car_id'";
         $result = $data_base->query($sql);
         if ($result === false) {
             echo "Error updating row: " . $data_base->error;

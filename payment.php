@@ -188,7 +188,7 @@
         function insertReservation($conn, $reservationData)
         {
             // Update car status to 'rented'
-            $updateStatusSql = "UPDATE car SET car_status = 'rented' WHERE car_id = ?";
+            $updateStatusSql = "UPDATE car SET car_status = 'Rented' WHERE car_id = ?";
             $updateStatusStmt = $conn->prepare($updateStatusSql);
             $updateStatusStmt->bind_param("i", $reservationData['car_id']);
             $updateStatusStmt->execute();

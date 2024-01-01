@@ -71,9 +71,14 @@
                     <input type="text" id="field5" name="car_id" placeholder="Enter Car Id">
                 </div>
                 <div class="form-row">
-                    <label for="field6">New Status:</label>
-                    <input type="text" id="field6" name="status" placeholder="Enter Status">
+                <label for="field6">Select Office Id:</label>
+                    <select id="field6" name="status">
+                        <option value='1'>Available</option>
+                        <option value='2'>Rented</option>
+                        <option value='3'>Out of Service</option>
+                    </select>
                 </div>
+
                 <div class="form-row submit-btn">
                     <input type="submit" value="Submit">
                 </div>

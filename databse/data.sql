@@ -1,19 +1,19 @@
 INSERT INTO car (car_id, company, model, year_made, image_path, office_num, price_per_day, car_status)
 VALUES
-  (1, 'Acura', 'TL Sedan', '2012', 'assets\\Car Images\\Acura TL Sedan 2012_8522.jpg', 2, 150, 'rented'),
-  (2, 'Acura', 'ZDX Hatchback', '2012', 'assets\\Car Images\\Acura ZDX Hatchback 2012_9511.jpg', 4, 180, 'rented'),
-  (3, 'Aston Martin', 'V8 Vantage Convertible', '2012', 'assets\\Car Images\\Aston Martin V8 Vantage Convertible 2012_4990.jpg', 1, 120, 'rented'),
-  (4, 'Audi', '100 Sedan', '1994', 'assets\\Car Images\\Audi 100 Sedan 1994_197.jpg', 3, 160, 'rented'),
-  (5, 'Audi', '100 Wagon', '1994', 'assets\\Car Images\\Audi 100 Wagon 1994_1872.jpg', 2, 140, 'rented'),
-  (6, 'Audi', 'A5 Coupe', '2012', 'assets\\Car Images\\Audi A5 Coupe 2012_1874.jpg', 1, 130, 'rented'),
-  (7, 'Audi', 'TT RS Coupe', '2012', 'assets\\Car Images\\Audi TT RS Coupe 2012_8935.jpg', 4, 200, 'rented'),
-  (8, 'Audi', 'TTS Coupe', '2012', 'assets\\Car Images\\Audi TTS Coupe 2012_662.jpg', 3, 170, 'rented'),
-  (9, 'BMW', '3 Series Sedan', '2012', 'assets\\Car Images\\BMW 3 Series Sedan 2012_3175.jpg', 2, 150, 'rented'),
-  (10, 'BMW', '3 Series Wagon', '2012', 'assets\\Car Images\\BMW 3 Series Wagon 2012_3144.jpg', 1, 120, 'rented'),
-  (11, 'BMW', '3 Series Wagon', '2012', 'assets\\Car Images\\BMW 3 Series Wagon 2012_7744.jpg', 3, 160, 'rented'),
-  (12, 'Buick', 'Enclave SUV', '2012', 'assets\\Car Images\\Buick Enclave SUV 2012_9537.jpg', 4, 180, 'rented'),
-  (13, 'Buick', 'Verano Sedan', '2012', 'assets\\Car Images\\Buick Verano Sedan 2012_9876.jpg', 2, 150, 'rented'),
-  (14, 'Cadillac', 'CTS-V Sedan', '2012', 'assets\\Car Images\\Cadillac CTS-V Sedan 2012_2489.jpg', 1, 120, 'rented'),
+  (1, 'Acura', 'TL Sedan', '2012', 'assets\\Car Images\\Acura TL Sedan 2012_8522.jpg', 2, 150, 'Available'),
+  (2, 'Acura', 'ZDX Hatchback', '2012', 'assets\\Car Images\\Acura ZDX Hatchback 2012_9511.jpg', 4, 180, 'Available'),
+  (3, 'Aston Martin', 'V8 Vantage Convertible', '2012', 'assets\\Car Images\\Aston Martin V8 Vantage Convertible 2012_4990.jpg', 1, 120, 'Available'),
+  (4, 'Audi', '100 Sedan', '1994', 'assets\\Car Images\\Audi 100 Sedan 1994_197.jpg', 3, 160, 'Available'),
+  (5, 'Audi', '100 Wagon', '1994', 'assets\\Car Images\\Audi 100 Wagon 1994_1872.jpg', 2, 140, 'Available'),
+  (6, 'Audi', 'A5 Coupe', '2012', 'assets\\Car Images\\Audi A5 Coupe 2012_1874.jpg', 1, 130, 'Available'),
+  (7, 'Audi', 'TT RS Coupe', '2012', 'assets\\Car Images\\Audi TT RS Coupe 2012_8935.jpg', 4, 200, 'Available'),
+  (8, 'Audi', 'TTS Coupe', '2012', 'assets\\Car Images\\Audi TTS Coupe 2012_662.jpg', 3, 170, 'Available'),
+  (9, 'BMW', '3 Series Sedan', '2012', 'assets\\Car Images\\BMW 3 Series Sedan 2012_3175.jpg', 2, 150, 'Available'),
+  (10, 'BMW', '3 Series Wagon', '2012', 'assets\\Car Images\\BMW 3 Series Wagon 2012_3144.jpg', 1, 120, 'Available'),
+  (11, 'BMW', '3 Series Wagon', '2013', 'assets\\Car Images\\BMW 3 Series Wagon 2012_7744.jpg', 3, 160, 'Available'),
+  (12, 'Buick', 'Enclave SUV', '2012', 'assets\\Car Images\\Buick Enclave SUV 2012_9537.jpg', 4, 180, 'Available'),
+  (13, 'Buick', 'Verano Sedan', '2012', 'assets\\Car Images\\Buick Verano Sedan 2012_9876.jpg', 2, 150, 'Available'),
+  (14, 'Cadillac', 'CTS-V Sedan', '2012', 'assets\\Car Images\\Cadillac CTS-V Sedan 2012_2489.jpg', 1, 120, 'Available'),
   (15, 'Cadillac', 'CTS-V Sedan', '2012', 'assets\\Car Images\\Cadillac CTS-V Sedan 2012_7550.jpg', 3, 160, 'Available'),
   (16, 'Chevrolet', 'Malibu Sedan', '2007', 'assets\\Car Images\\Chevrolet Malibu Sedan 2007_6658.jpg', 2, 150, 'Available'),
   (17, 'Chevrolet', 'Monte Carlo Coupe', '2007', 'assets\\Car Images\\Chevrolet Monte Carlo Coupe 2007_4384.jpg', 4, 180, 'Available'),
@@ -89,20 +89,4 @@ VALUES
   ('New York, 456 Broadway Street', 2),
   ('Cairo, 789 Sphinx Avenue', 3),
   ('Alexandria, 101 Cleopatra Street', 4); 
-
-INSERT INTO reservation (car_id, customer_id, start_date, return_date, return_office)
-VALUES
-    (1, 1, '2023-01-01', '2023-01-10', 2),
-    (2, 2, '2023-02-15', '2023-02-20', 1),
-    (3, 3, '2023-03-10', '2023-03-15', 3),
-    (4, 4, '2023-04-05', '2023-04-12', 4),
-    (5, 5, '2023-05-20', '2023-05-25', 2),
-    (6, 6, '2023-06-12', '2023-06-18', 1),
-    (7, 7, '2023-07-03', '2023-07-09', 3),
-    (8, 8, '2023-08-15', '2023-08-22', 4),
-    (9, 9, '2023-09-10', '2023-09-15', 2),
-    (10, 10, '2023-10-05', '2023-10-12', 1),
-    (11, 11, '2023-11-18', '2023-11-25', 3),
-    (12, 12, '2023-12-01', '2023-12-08', 4)
-    ;
 

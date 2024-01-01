@@ -22,9 +22,13 @@ switch ($type) {
         insertInDb($row);
         break;
 
-    case '2':
-        modifyStatus($_POST["car_id"], $_POST["status"]);
-        break;
+        case '2':
+            $status = ($_POST["status"] == '1') ? 'Available' : (($_POST["status"] == '2') ? 'Rented' : 'Out of Service :(');
+            modifyStatus($_POST["car_id"], $status);
+            break;
+        
+        
+
 
     case '3':
         $start = $_POST["start_date"];

@@ -30,12 +30,19 @@ if (isset($_GET['vhid'])) {
         ?>
         
         <!-- Display car details using the fetched data -->
-        <div class="container" style="margin-top: 150px;"> <!-- Set the margin-top to 150px -->
+        <div class="container" style="margin-top: 150px;">
             <div class="row">
                 <div class="col-md-12">
                     <h2 style="margin-bottom: 10px;"><?php echo htmlentities($carDetails->company . ' ' . $carDetails->model); ?></h2>
-                    <div class="picture-frame" style="border: 2px solid white; padding: 10px;"> <!-- Set the border color to white -->
-                        <img src="<?php echo htmlentities($carDetails->image_path); ?>" alt="Car Image" style="max-width: 100%; height: auto;">
+                    <div class="picture-frame" style="border: 2px solid white; padding: 10px;">
+                        <?php
+                        // Check if image_path is not empty
+                        if (!empty($carDetails->image_path) && file_exists($carDetails->image_path)) {
+                            echo '<img src="' . htmlentities($carDetails->image_path) . '" alt="Car Image" style="max-width: 100%; height: auto;">';
+                        } else {
+                            echo 'Image not available';
+                        }
+                        ?>
                     </div>
                     <p>Year: <?php echo htmlentities($carDetails->year_made); ?></p>
                     <p>Price Per Day: $<?php echo htmlentities($carDetails->price_per_day); ?></p>
@@ -49,6 +56,7 @@ if (isset($_GET['vhid'])) {
                 </div>
             </div>
         </div>
+
         <?php
     } else {
         // Redirect to register page if customer_id is not available

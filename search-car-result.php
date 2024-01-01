@@ -33,23 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 }
 
-// Final SQL query with dynamic WHERE clause
+// Final SQL query to get all cars and sort by car_id
 $sql = "SELECT car.*, office.Location FROM car 
         JOIN office ON car.office_num = office.office_id 
         $whereClause
-        ORDER BY car_id DESC LIMIT 10";
+        ORDER BY car_id ASC";
 $query = $dbh->prepare($sql);
 $query->execute();
 $results = $query->fetchAll(PDO::FETCH_OBJ);
-
-// ... (rest of the existing code)
-
 ?>
 
 <!-- Header -->
 <?php include('includes/pages_header.php'); ?>
 <!-- /Header -->
-<?php include('assets\css\search-page.css'); ?>
+<?php include('assets/css/search-page.css'); ?>
 
 <!-- Listing -->
 <section class="listing-page">
@@ -61,23 +58,35 @@ $results = $query->fetchAll(PDO::FETCH_OBJ);
                     <div class="sorting-count" id="carResults">
                         <?php
                         $counter = 0;
+                        $recordsPerPage = 6;
+                        $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                        $totalRecords = $query->rowCount();
+                        $totalPages = ceil($totalRecords / $recordsPerPage);
+                        $startIndex = ($currentPage - 1) * $recordsPerPage;
 
-                        if ($query->rowCount() > 0) {
-                            foreach ($results as $result) {
+                        $paginatedResults = array_slice($results, $startIndex, $recordsPerPage);
+
+                        if (!empty($paginatedResults)) {
+                            foreach ($paginatedResults as $result) {
                                 $brand = htmlentities($result->company);
+                                $isOutOfService = $result->car_status == 'Out of Service :(';
                                 ?>
                                 <div class="car-entity">
                                     <div class="recent_post_img">
-                                        <a href="vehical-details.php?vhid=<?php echo htmlentities($result->car_id); ?>">
+                                        <?php if (!$isOutOfService) { ?>
+                                            <a href="vehical-details.php?vhid=<?php echo htmlentities($result->car_id); ?>">
+                                                <img src="<?php echo htmlentities($result->image_path); ?>" alt="image">
+                                            </a>
+                                        <?php } else { ?>
                                             <img src="<?php echo htmlentities($result->image_path); ?>" alt="image">
-                                        </a>
+                                        <?php } ?>
                                     </div>
                                     <div class="recent_post_title">
                                         <a href="vehical-details.php?vhid=<?php echo htmlentities($result->car_id); ?>">
                                             <?php echo $brand; ?>, <?php echo htmlentities($result->model); ?>
                                         </a>
                                         <p class="widget_price">$<?php echo htmlentities($result->price_per_day); ?> Per Day</p>
-                                        <p class="widget_status">Status: <?php echo htmlentities($result->car_status); ?></p>
+                                        <p class="widget_status">Status: <?php echo htmlentities($result->car_status == 'Rented' ? $result->car_status . ' Now' : $result->car_status); ?></p>
                                         <p class="widget_info">Year: <?php echo htmlentities($result->year_made); ?></p>
                                         <p class="widget_location">Location: <?php echo htmlentities($result->Location); ?></p>
                                     </div>
@@ -85,6 +94,16 @@ $results = $query->fetchAll(PDO::FETCH_OBJ);
                                 <?php
                                 $counter++;
                             }
+                            // Pagination links
+                            echo '<div class="pagination">';
+                            for ($i = 1; $i <= $totalPages; $i++) {
+                                $activeClass = ($i == $currentPage) ? 'active' : '';
+                                echo '<a href="?page=' . $i . '" class="' . $activeClass . '">' . $i . '</a>';
+                                if ($i < $totalPages) {
+                                    echo ' - ';
+                                }
+                            }
+                            echo '</div>';
                         } else {
                             echo "<p>No cars found</p>";
                         }
@@ -112,7 +131,6 @@ $results = $query->fetchAll(PDO::FETCH_OBJ);
                                     $brandQuery = $dbh->prepare($brandSql);
                                     $brandQuery->execute();
                                     $brands = $brandQuery->fetchAll(PDO::FETCH_OBJ);
-
                                     if ($brandQuery->rowCount() > 0) {
                                         foreach ($brands as $brand) {
                                             $selected = (isset($_GET['brand']) && $_GET['brand'] == $brand->company) ? 'selected' : '';
