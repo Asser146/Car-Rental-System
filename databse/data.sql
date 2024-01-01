@@ -62,26 +62,7 @@ VALUES
   ('Sarah', 'Anderson', 1, 'sarah.anderson@example.com', 'password11'),
   ('David', 'Wilson', 2, 'david.wilson@example.com', 'password12'),
   ('Emma', 'Thomas', 3, 'emma.thomas@example.com', 'password13'),
-  ('Christopher', 'Moore', 4, 'christopher.moore@example.com', 'password14'),
-  ('Grace', 'Allen', 1, 'grace.allen@example.com', 'password15'),
-  ('Daniel', 'Carter', 2, 'daniel.carter@example.com', 'password16'),
-  ('Olivia', 'Baker', 3, 'olivia.baker@example.com', 'password17'),
-  ('Michael', 'Evans', 4, 'michael.evans@example.com', 'password18'),
-  ('Sophia', 'Fisher', 1, 'sophia.fisher@example.com', 'password19'),
-  ('Ethan', 'Turner', 2, 'ethan.turner@example.com', 'password20');
-
-INSERT INTO customer (Fname, Lname, email, pass)
-VALUES 
-  ('John', 'Doe', 'john.doe@example.com', 'password1'),
-  ('Alice', 'Smith', 'alice.smith@example.com', 'password2'),
-  ('Bob', 'Johnson', 'bob.johnson@example.com', 'password3'),
-  ('Emily', 'Davis', 'emily.davis@example.com', 'password4'),
-  ('Michael', 'Taylor', 'michael.taylor@example.com', 'password5'),
-  ('Sophia', 'Miller', 'sophia.miller@example.com', 'password6'),
-  ('Daniel', 'White', 'daniel.white@example.com', 'password7'),
-  ('Olivia', 'Brown', 'olivia.brown@example.com', 'password8'),
-  ('Ethan', 'Jones', 'ethan.jones@example.com', 'password9'),
-  ('Ava', 'Clark', 'ava.clark@example.com', 'password10');
+  ('Christopher', 'Moore', 4, 'christopher.moore@example.com', 'password14')
 
 INSERT INTO office (Location, mgr_id)
 VALUES 
