@@ -35,7 +35,6 @@
                     <div class="inner"></div>
                     <input type="submit" value="Submit">
                 </div>
-                
             </div>
         </form>
         <div class="input-data">
@@ -45,6 +44,17 @@
         <script>
             function updateChoice(value) {
                 document.getElementById(value).value = value;
+            }
+
+            function validateLogin() {
+                var clientCheckbox = document.getElementById("1");
+                var staffCheckbox = document.getElementById("2");
+
+                if (!clientCheckbox.checked && !staffCheckbox.checked) {
+                    alert("Please choose at least one user type.");
+                    return false;
+                }
+                return true;
             }
         </script>
     </div>

@@ -12,6 +12,36 @@
         function myJsFunction() {
             alert('Rservation Confiermed');
         }
+        function validatePayment() {
+            // Get the form inputs
+            var cardNumber = document.getElementById('cardNumber').value.trim();
+            var expiryDate = document.getElementById('expiryDate').value.trim();
+            var cvv = document.getElementById('cvv').value.trim();
+
+            // Check if the card number is a valid credit card number using a regex pattern
+            var cardNumberPattern = /^[0-9]{16}$/;
+            if (!cardNumberPattern.test(cardNumber)) {
+                alert('Please enter a valid 16-digit credit card number.');
+                return false;
+            }
+
+            // Check if the expiry date is in the MM/YY format using a regex pattern
+            var expiryDatePattern = /^(0[1-9]|1[0-2])\/[0-9]{2}$/;
+            if (!expiryDatePattern.test(expiryDate)) {
+                alert('Please enter a valid expiry date in the MM/YY format.');
+                return false;
+            }
+
+            // Check if the CVV is a valid 3-digit number
+            var cvvPattern = /^[0-9]{3}$/;
+            if (!cvvPattern.test(cvv)) {
+                alert('Please enter a valid 3-digit CVV number.');
+                return false;
+            }
+
+            // If all validations pass, return true to allow form submission
+            return true;
+        }
     </script>
 </head>
 
@@ -207,7 +237,7 @@
                 echo '<script>';
                 echo 'myJsFunction();'; // Call your JavaScript function
                 echo '</script>';
-                header('Location: my-booking.php');
+                echo '<script>window.location.href = "my-booking.php";</script>';
                 exit();
             } else {
                 echo "Error: " . $insertReservationStmt->error;
