@@ -35,7 +35,7 @@ if ($authType == 1) { // Login mode
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         
-        if ($row['email'] == $input_email && $row['pass'] == $input_pass) {
+        if (password_verify($input_pass, $row['pass'])) {
             session_start();
             $_SESSION['login'] = 1;
             $_SESSION['customer_id'] = $row['customer_id'];
@@ -62,9 +62,12 @@ if ($authType == 1) { // Login mode
     $lname = $_POST["name2"];
 
     if (checkEmail($input_email, $userType)) {
+        // Hash the password before storing it in the database
+        $hashed_password = password_hash($input_pass, PASSWORD_DEFAULT);
+
         $sql = ($userType == 1) ?
-            "INSERT INTO $table (fname, Lname, email, pass) VALUES ('$fname', '$lname', '$input_email', '$input_pass')" :
-            "INSERT INTO $table (Fname, Lname, office_num, email, pass) VALUES ('$fname', '$lname', '$office_num', '$input_email', '$input_pass')";
+            "INSERT INTO $table (fname, Lname, email, pass) VALUES ('$fname', '$lname', '$input_email', '$hashed_password')" :
+            "INSERT INTO $table (Fname, Lname, office_num, email, pass) VALUES ('$fname', '$lname', '$office_num', '$input_email', '$hashed_password')";
     } else {
         ($userType == 1) ? header("Location: register_page.html?register_error=1") :
             header("Location: admin/admin_page.php?register_error=1");
@@ -72,7 +75,7 @@ if ($authType == 1) { // Login mode
     }
 
     $data_base->query($sql);
-    ($userType == 1) ? header("Location: main.php") : header("Location: admin/admin_page.php");
+    ($userType == 1) ? header("Location: login_page.html") : header("Location: admin/admin_page.php");
     exit();
 }
 ?>
